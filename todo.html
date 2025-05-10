@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .todo-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      margin-left: 5px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 1rem;
+    }
+    li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    li.done span {
+      text-decoration: line-through;
+      color: gray;
+    }
+    .remove {
+      color: red;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="todo-container">
+    <h1>To-Do List</h1>
+    <input type="text" id="todo-input" placeholder="Add a new task..." />
+    <button onclick="addTodo()">Add</button>
+    <ul id="todo-list"></ul>
+  </div>
+
+  <script>
+    const input = document.getElementById('todo-input');
+    const list = document.getElementById('todo-list');
+
+    function addTodo() {
+      const task = input.value.trim();
+      if (task === '') return;
+
+      const li = document.createElement('li');
+      const span = document.createElement('span');
+      span.textContent = task;
+      span.onclick = () => li.classList.toggle('done');
+
+      const removeBtn = document.createElement('span');
+      removeBtn.textContent = '✖';
+      removeBtn.className = 'remove';
+      removeBtn.onclick = () => li.remove();
+
+      li.appendChild(span);
+      li.appendChild(removeBtn);
+      list.appendChild(li);
+
+      input.value = '';
+    }
+
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') addTodo();
+    });
+  </script>
+</body>
+</html>
